@@ -1,4 +1,4 @@
-First, make sure to source the caddy.bashrc file.
+First, make sure to source the setup.csh file.
 
 Next, enter into the build directory of the design you want to run, and run the following:
 
