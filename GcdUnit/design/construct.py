@@ -22,8 +22,8 @@ def construct():
   # Parameters
   #-----------------------------------------------------------------------
   
-  adk_name = 'skywater-130nm-adk'
-  adk_view = 'view-standard.v2021'
+  adk_name = 'skywater-130nm-adk.v2021'
+  adk_view = 'view-standard'
 
   parameters = {
     'construct_path' : __file__,
