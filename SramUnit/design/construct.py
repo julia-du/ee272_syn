@@ -16,7 +16,7 @@ from mflowgen.components import Graph, Step
 def construct():
 
   g = Graph()
-  g.sys_path.append( '/farmshare/classes/ee/272' )
+  g.sys_path.append( '/farmshare/home/classes/ee/272' )
 
   #-----------------------------------------------------------------------
   # Parameters
