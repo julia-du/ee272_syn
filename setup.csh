@@ -5,10 +5,13 @@ setenv MGLS_LICENSE_FILE 1717@cadlic0.stanford.edu
 
 source /cad/modules/tcl/init/tcsh
 module load base
-module load vcs
-module load dc_shell
-module load lc
-module load xcelium
+module load vcs/S-2021.09-SP1
+module load dc_shell/S-2021.06-SP5-4
+module load innovus/21.16.000
+module load calibre/2019.1
+module load prime/T-2022.03
+
+module load genus/20.11.000 
 
 complete make \
     'n/-f/f/' \
