@@ -1,3 +1,5 @@
+/farmshare/home/classes/ee/admin/software/bin/centos7.sh
+
 setenv PDKPATH /farmshare/home/classes/ee/272/PDKs/sky130A
 
 setenv PATH /cad/mentor/2019.11/Catapult_Synthesis_10.4b-841621/Mgc_home/bin:$PATH
@@ -18,3 +20,5 @@ complete make \
     'n/-f/f/' \
     'c/*=/f/' \
     'n@*@`cat -s GNUmakefile Makefile makefile |& sed -n -e "/No such file/d" -e "/^[^     #].*:/s/:.*//p"`@'
+
+source venv/bin/activate.csh

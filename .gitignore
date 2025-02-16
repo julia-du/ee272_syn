@@ -4,4 +4,4 @@ ConvVerilog/build/*
 ConvHLS/build/*
 GcdUnit/design/__pycache__/*
 SramUnit/design/__pycache__/*
-
+**/.nfs*
