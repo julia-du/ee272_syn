@@ -1,0 +1,3 @@
+[submodule "mflowgen"]
+	path = mflowgen
+	url = https://github.com/mflowgen/mflowgen.git
