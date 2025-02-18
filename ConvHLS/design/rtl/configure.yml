@@ -1,0 +1,10 @@
+name: rtl
+
+outputs:
+  - design.v
+  - design.vcs.v
+
+commands:
+  - make
+  - cat build/Conv.v1/concat_rtl.v > outputs/design.v 
+  - cat build/Conv.v1/concat_rtl.v > outputs/design.vcs.v 

@@ -1,4 +1,4 @@
-#!/home/users/juliadu/Documents/ee272/syn/venv/bin/python3.7
+#!/home/users/sophiadu/ee272/ee272_syn/venv/bin/python3.7
 # -*- coding: utf-8 -*-
 import re
 import sys

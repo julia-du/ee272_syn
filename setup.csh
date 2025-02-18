@@ -21,4 +21,4 @@ complete make \
     'c/*=/f/' \
     'n@*@`cat -s GNUmakefile Makefile makefile |& sed -n -e "/No such file/d" -e "/^[^     #].*:/s/:.*//p"`@'
 
-source venv/bin/activate.csh
+source ../venv/bin/activate.csh

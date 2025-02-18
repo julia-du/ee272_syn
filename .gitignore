@@ -6,3 +6,4 @@ GcdUnit/design/__pycache__/*
 SramUnit/design/__pycache__/*
 **/.nfs*
 **/resnet_conv1_input_gold
+venv/

@@ -1,0 +1,8 @@
+name: testbench
+
+outputs:
+  - testbench.sv
+  - design.args
+
+commands:
+  - cp ConvHLSTb.sv outputs/testbench.sv

@@ -1,4 +1,4 @@
-#!/home/users/juliadu/Documents/ee272/syn/venv/bin/python3.7
+#!/home/users/sophiadu/ee272/ee272_syn/venv/bin/python3.7
 # EASY-INSTALL-ENTRY-SCRIPT: 'mflowgen','console_scripts','mflowgen-python'
 __requires__ = 'mflowgen'
 import re

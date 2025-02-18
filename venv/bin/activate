@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/users/juliadu/Documents/ee272/syn/venv"
+VIRTUAL_ENV="/home/users/sophiadu/ee272/ee272_syn/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
