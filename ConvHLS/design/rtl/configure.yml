@@ -1,10 +1,16 @@
 name: rtl
 
+inputs:
+  - sram_input_db.lib
+  - sram_weight_db.lib
+  - sram_accum_buff.lib
+  - ccs_ram_sync_1R1W.h
+  - ccs_ram_sync_1R1W_trans_rsc.h
 outputs:
   - design.v
-  - design.vcs.v
+  - run.vcd
 
 commands:
   - make
   - cat build/Conv.v1/concat_rtl.v > outputs/design.v 
-  - cat build/Conv.v1/concat_rtl.v > outputs/design.vcs.v 
+  - make rtl_test_no_gui

@@ -27,10 +27,10 @@ def construct():
     'clock_period'   : 20.0,
     'adk'            : adk_name,
     'adk_view'       : adk_view,
-    'topographical'  : True,
-    'testbench_name' : 'ConvHLSTb',
-    'strip_path'     : 'ConvHLSTb/ConvHLS_inst',
-    'saif_instance'  : 'ConvHLSTb/ConvHLS_inst'
+    'topographical'  : True
+ #   'testbench_name' : 'ConvHLSTb',
+ #   'strip_path'     : 'ConvHLSTb/sram_inst',
+ #   'saif_instance'  : 'ConvHLSTb/ConvHLS_inst'
   }
 
   #-----------------------------------------------------------------------
@@ -48,7 +48,7 @@ def construct():
 
   sram          = Step( this_dir + '/sram'          )
   rtl           = Step( this_dir + '/rtl'           )
-  testbench     = Step( this_dir + '/testbench'     )
+  # testbench     = Step( this_dir + '/testbench'     )
   constraints   = Step( this_dir + '/constraints'   )
 
   # Default steps
@@ -58,6 +58,9 @@ def construct():
   rtl_sim      = Step( 'synopsys-vcs-sim',              default=True )
   gen_saif     = Step( 'synopsys-vcd2saif-convert',     default=True )
   gen_saif_rtl = gen_saif.clone()
+  sram_test = rtl_sim.clone()
+  sram_test.set_name( 'sram-test' )
+  sram_test.set_param( 'testbench_name', 'SramTb')
   gen_saif_rtl.set_name( 'gen-saif-rtl' )
 
   #-----------------------------------------------------------------------
@@ -66,11 +69,11 @@ def construct():
 
   g.add_step( info         )
   g.add_step( sram         )
+  g.add_step( sram_test    )
   g.add_step( rtl          )
-  g.add_step( testbench    )
+  # g.add_step( testbench    )
   g.add_step( constraints  )
   g.add_step( dc           )
-  g.add_step( rtl_sim      )
   g.add_step( gen_saif_rtl )
 
   #-----------------------------------------------------------------------
@@ -80,18 +83,20 @@ def construct():
   # Dynamically add edges
 
   dc.extend_inputs(['sram_tt_1p8V_25C.db'])
-  rtl_sim.extend_inputs(['sram.v'])
+  #sram_test.extend_inputs(['sram.v'])
 
   # Connect by name
 
   g.connect_by_name( adk,          dc           )
   g.connect_by_name( sram,         dc           )
+  g.connect_by_name( sram,         rtl          )
   g.connect_by_name( rtl,          dc           )
   g.connect_by_name( constraints,  dc           )
-  g.connect_by_name( rtl,          rtl_sim      ) 
-  g.connect_by_name( testbench,    rtl_sim      ) 
-  g.connect_by_name( sram,         rtl_sim      ) 
-  g.connect( rtl_sim.o( 'run.vcd' ), gen_saif_rtl.i( 'run.vcd' ) ) # FIXME: VCS sim node generates a VCD file but gives it a VPD extension
+  g.connect_by_name( rtl,          gen_saif_rtl )
+  # g.connect_by_name( rtl,          rtl_sim      ) 
+  # g.connect_by_name( testbench,    rtl_sim      ) 
+  g.connect_by_name( sram,         sram_test      ) 
+  # g.connect( rtl_sim.o( 'run.vcd' ), gen_saif_rtl.i( 'run.vcd' ) ) # FIXME: VCS sim node generates a VCD file but gives it a VPD extension
   g.connect_by_name( gen_saif_rtl, dc           ) # run.saif
 
   #-----------------------------------------------------------------------

@@ -38,3 +38,4 @@ solution file add ./src/ConvTb.cpp -exclude true
 
 go analyze
 
+solution options set ComponentLibs/SearchPath ./inputs -append
