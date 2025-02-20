@@ -48,7 +48,6 @@ def construct():
 
   sram          = Step( this_dir + '/sram'          )
   rtl           = Step( this_dir + '/rtl'           )
-  # testbench     = Step( this_dir + '/testbench'     )
   constraints   = Step( this_dir + '/constraints'   )
 
   # Default steps
@@ -58,7 +57,7 @@ def construct():
   rtl_sim      = Step( 'synopsys-vcs-sim',              default=True )
   gen_saif     = Step( 'synopsys-vcd2saif-convert',     default=True )
   gen_saif_rtl = gen_saif.clone()
-  sram_test = rtl_sim.clone()
+  sram_test    = rtl_sim.clone()
   sram_test.set_name( 'sram-test' )
   sram_test.set_param( 'testbench_name', 'SramTb')
   gen_saif_rtl.set_name( 'gen-saif-rtl' )
@@ -82,7 +81,8 @@ def construct():
   
   # Dynamically add edges
 
-  dc.extend_inputs(['sram_tt_1p8V_25C.db'])
+  dc.extend_inputs(['sram_1024_32_tt_1p8V_25C.db'])
+  dc.extend_inputs(['sram_256_32_tt_1p8V_25C.db'])
   #sram_test.extend_inputs(['sram.v'])
 
   # Connect by name
@@ -96,7 +96,7 @@ def construct():
   # g.connect_by_name( rtl,          rtl_sim      ) 
   # g.connect_by_name( testbench,    rtl_sim      ) 
   g.connect_by_name( sram,         sram_test      ) 
-  # g.connect( rtl_sim.o( 'run.vcd' ), gen_saif_rtl.i( 'run.vcd' ) ) # FIXME: VCS sim node generates a VCD file but gives it a VPD extension
+  g.connect( rtl.o( 'run.vcd' ), gen_saif_rtl.i( 'run.vcd' ) ) # FIXME: VCS sim node generates a VCD file but gives it a VPD extension
   g.connect_by_name( gen_saif_rtl, dc           ) # run.saif
 
   #-----------------------------------------------------------------------

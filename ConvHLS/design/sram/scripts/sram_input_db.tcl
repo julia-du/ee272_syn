@@ -4,10 +4,10 @@ VENDOR           *
 RTLTOOL          DesignCompiler
 TECHNOLOGY       *
 LIBRARY          sram_input_db
-MODULE           ccs_ram_sync_1R1W
+MODULE           sram_wrapper_4096_128
 OUTPUT_DIR       ./
 FILES {
-  { FILENAME ./src/sram_wrapper.v FILETYPE Verilog MODELTYPE generic PARSE 1 PATHTYPE copy STATICFILE 1 VHDL_LIB_MAPS work }
+  { FILENAME ./src/sram_wrapper_4096_128.v FILETYPE Verilog MODELTYPE generic PARSE 1 PATHTYPE copy STATICFILE 1 VHDL_LIB_MAPS work }
 }
 VHDLARRAYPATH    {}
 WRITEDELAY       0.1

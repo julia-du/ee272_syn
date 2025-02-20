@@ -4,10 +4,10 @@ VENDOR           *
 RTLTOOL          DesignCompiler
 TECHNOLOGY       *
 LIBRARY          sram_accum_buff
-MODULE           ccs_ram_sync_1R1W
+MODULE           sram_wrapper_256_32
 OUTPUT_DIR       ./
 FILES {
-  { FILENAME ./src/sram_wrapper.v FILETYPE Verilog MODELTYPE generic PARSE 1 PATHTYPE copy STATICFILE 1 VHDL_LIB_MAPS work }
+  { FILENAME ./src/sram_wrapper_256_32.v FILETYPE Verilog MODELTYPE generic PARSE 1 PATHTYPE copy STATICFILE 1 VHDL_LIB_MAPS work }
 }
 VHDLARRAYPATH    {}
 WRITEDELAY       0.1
@@ -21,11 +21,11 @@ AREA             0
 RDWRRESOLUTION   UNKNOWN
 WRITELATENCY     1
 READLATENCY      1
-DEPTH            4096
+DEPTH            2256
 PARAMETERS {
   { PARAMETER data_width TYPE hdl IGNORE 0 MIN {} MAX {} DEFAULT 32   }
-  { PARAMETER addr_width TYPE hdl IGNORE 0 MIN {} MAX {} DEFAULT 12   }
-  { PARAMETER depth      TYPE hdl IGNORE 1 MIN {} MAX {} DEFAULT 4096 }
+  { PARAMETER addr_width TYPE hdl IGNORE 0 MIN {} MAX {} DEFAULT 8    }
+  { PARAMETER depth      TYPE hdl IGNORE 1 MIN {} MAX {} DEFAULT 256  }
 }
 PORTS {
   { NAME port_0 MODE Write }

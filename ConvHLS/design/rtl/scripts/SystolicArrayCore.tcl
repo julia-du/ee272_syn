@@ -26,7 +26,8 @@ directive set /SystolicArrayCore<IDTYPE,WDTYPE,ODTYPE,${ARRAY_DIMENSION},${ARRAY
 # Your code starts here
 # -------------------------------
 directive set /SystolicArrayCore<IDTYPE,WDTYPE,ODTYPE,${ARRAY_DIMENSION},${ARRAY_DIMENSION}>/run/accumulation_buffer:rsc -INTERLEAVE ${ARRAY_DIMENSION}
-# directive set /SystolicArrayCore<IDTYPE,WDTYPE,ODTYPE,${ARRAY_DIMENSION},${ARRAY_DIMENSION}>/run/accumulation_buffer:rsc -BLOCK_SIZE 256
+directive set /SystolicArrayCore<IDTYPE,WDTYPE,ODTYPE,${ARRAY_DIMENSION},${ARRAY_DIMENSION}>/run/accumulation_buffer:rsc -BLOCK_SIZE 256
+directive set /SystolicArrayCore<IDTYPE,WDTYPE,ODTYPE,${ARRAY_DIMENSION},${ARRAY_DIMENSION}>/run/accumulation_buffer:rsc -MAP_TO_MODULE {sram_accum_buff.sram_wrapper_256_32}
 
 # -------------------------------
 # Your code ends here

@@ -4,10 +4,10 @@ VENDOR           *
 RTLTOOL          DesignCompiler
 TECHNOLOGY       *
 LIBRARY          sram_weight_db
-MODULE           ccs_ram_sync_1R1W
+MODULE           sram_wrapper_8192_128
 OUTPUT_DIR       ./
 FILES {
-  { FILENAME ./src/sram_wrapper.v FILETYPE Verilog MODELTYPE generic PARSE 1 PATHTYPE copy STATICFILE 1 VHDL_LIB_MAPS work }
+  { FILENAME ./src/sram_wrapper_8192_128.v FILETYPE Verilog MODELTYPE generic PARSE 1 PATHTYPE copy STATICFILE 1 VHDL_LIB_MAPS work }
 }
 VHDLARRAYPATH    {}
 WRITEDELAY       0.1
@@ -24,7 +24,7 @@ READLATENCY      1
 DEPTH            8192
 PARAMETERS {
   { PARAMETER data_width TYPE hdl IGNORE 0 MIN {} MAX {} DEFAULT 128  }
-  { PARAMETER addr_width TYPE hdl IGNORE 0 MIN {} MAX {} DEFAULT 12   }
+  { PARAMETER addr_width TYPE hdl IGNORE 0 MIN {} MAX {} DEFAULT 13   }
   { PARAMETER depth      TYPE hdl IGNORE 1 MIN {} MAX {} DEFAULT 8192 }
 }
 PORTS {

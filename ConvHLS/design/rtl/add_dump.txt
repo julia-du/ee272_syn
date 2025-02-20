@@ -1,0 +1,5 @@
+initial begin
+   $dumpfile("run.vcd");
+   $dumpvars;
+end
+endmodule

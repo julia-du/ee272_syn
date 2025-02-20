@@ -13,6 +13,7 @@ module load dc_shell/S-2021.06-SP5-4
 module load innovus/21.16.000
 module load calibre/2019.1
 module load prime/T-2022.03
+module load incisive
 
 module load genus/20.11.000 
 

@@ -2,7 +2,7 @@
 `define ASSIGNMENT_DELAY 5
 `define FINISH_TIME 2000
 `define NUM_WMASKS 4
-`define DATA_WIDTH 128
+`define DATA_WIDTH 32
 `define ADDR_WIDTH 12
 `define DEPTH 4096
 
@@ -18,7 +18,7 @@ module SramTb;
 
   always #(`CLK_PERIOD/2) clk =~clk;
  
-  ccs_ram_sync_1R1W #(
+  sram_wrapper_1024_32 #(
     .data_width(`DATA_WIDTH),
     .addr_width(`ADDR_WIDTH),
     .depth(`DEPTH)
@@ -44,7 +44,7 @@ module SramTb;
     wadr <= 0;
     din <= 0;
 
-    #(10*`CLK_PERIOD) // Write
+    #(1*`CLK_PERIOD) // Write
     we <= 1;
     wadr <= {`ADDR_WIDTH{1'b0}};
     din <= {`DATA_WIDTH{1'b1}};
@@ -53,9 +53,29 @@ module SramTb;
     #(1*`CLK_PERIOD)
     re <= 1;
     radr <= {`ADDR_WIDTH{1'b0}};
-    #(5*`CLK_PERIOD) // Read
-    // $display($time, " dout = %h", dout);
-    // assert(dout == {`DATA_WIDTH{1'b1}});
+    #(1*`CLK_PERIOD) 
+    #(`CLK_PERIOD/2)// Read
+    $display($time, " dout = %h", dout);
+    assert(dout == {`DATA_WIDTH{1'b1}});
+    #(`CLK_PERIOD/2)
+    re <= 0;
+
+    #(1*`CLK_PERIOD) // Write
+    we <= 1;
+    wadr <= {`ADDR_WIDTH{1'b1}};
+    din <= {`DATA_WIDTH{1'b1}};
+    #(1*`CLK_PERIOD)
+    we <= 0;
+    #(1*`CLK_PERIOD)
+    re <= 1;
+    radr <= {`ADDR_WIDTH{1'b1}};
+    #(1*`CLK_PERIOD) 
+    #(`CLK_PERIOD/2)// Read
+    $display($time, " dout = %h", dout);
+    assert(dout == {`DATA_WIDTH{1'b1}});
+    #(`CLK_PERIOD/2)
+    re <= 0;
+    
     $finish(2);
   end
 
