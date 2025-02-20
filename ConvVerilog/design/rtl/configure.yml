@@ -1,0 +1,32 @@
+name: rtl
+
+inputs:
+  - sram_input_db.lib
+  - sram_weight_db.lib
+  - sram_accum_buff.lib
+  - sram_wrapper_256_32.v
+  - sram_wrapper_256_32.h
+  - sram_wrapper_256_32.tcl
+  - sram_wrapper_256_32_trans_rsc.h
+  - sram_wrapper_4096_128.v
+  - sram_wrapper_4096_128.h
+  - sram_wrapper_4096_128.tcl
+  - sram_wrapper_4096_128_trans_rsc.h
+  - sram_wrapper_8192_128.v
+  - sram_wrapper_8192_128.h
+  - sram_wrapper_8192_128.tcl
+  - sram_wrapper_8192_128_trans_rsc.h
+outputs:
+  - design.v
+  - run.vcd
+
+commands:
+  - make
+  - cat build/Conv.v1/concat_rtl.v > outputs/design.v 
+  - head -n -5 build/Conv.v1/concat_sim_rtl.v > temp
+  - mv temp build/Conv.v1/concat_sim_rtl.v
+  - cat add_dump.txt >> build/Conv.v1/concat_sim_rtl.v
+  - make rtl_test_no_gui
+  
+parameters:
+  clock_period: 1.0

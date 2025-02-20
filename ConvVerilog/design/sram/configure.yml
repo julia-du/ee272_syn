@@ -1,0 +1,76 @@
+#=========================================================================
+# OpenRAM SRAM Compiler 
+#=========================================================================
+# Author : Kartik Prabhu
+# Date   : February 15, 2020
+#
+
+name: sram
+
+#-------------------------------------------------------------------------
+# Outputs
+#-------------------------------------------------------------------------
+
+outputs:
+  - sram_1024_32.sp
+  - sram_1024_32.v
+  - sram_1024_32.lef
+  - sram_1024_32_tt_1p8V_25C.lib
+  - sram_1024_32_tt_1p8V_25C.db
+  - sram_1024_32.gds
+  - sram_256_32.sp
+  - sram_256_32.v
+  - sram_256_32.lef
+  - sram_256_32_tt_1p8V_25C.lib
+  - sram_256_32_tt_1p8V_25C.db
+  - sram_256_32.gds
+  - design.vcs.v
+  - sram_input_db.lib
+  - sram_weight_db.lib
+  - sram_accum_buff.lib
+  - sram_wrapper_256_32.v
+  - sram_wrapper_256_32.h
+  - sram_wrapper_256_32.tcl
+  - sram_wrapper_256_32_trans_rsc.h
+  - sram_wrapper_4096_128.v
+  - sram_wrapper_4096_128.h
+  - sram_wrapper_4096_128.tcl
+  - sram_wrapper_4096_128_trans_rsc.h
+  - sram_wrapper_8192_128.v
+  - sram_wrapper_8192_128.h
+  - sram_wrapper_8192_128.tcl
+  - sram_wrapper_8192_128_trans_rsc.h
+  - testbench.sv
+  - design.args
+
+#-------------------------------------------------------------------------
+# Commands
+#-------------------------------------------------------------------------
+
+commands:
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_4kbyte_1rw1r_32x1024_8/sky130_sram_4kbyte_1rw1r_32x1024_8.sp              outputs/sram_1024_32.sp
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_4kbyte_1rw1r_32x1024_8/sky130_sram_4kbyte_1rw1r_32x1024_8.v               outputs/sram_1024_32.v
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_4kbyte_1rw1r_32x1024_8/sky130_sram_4kbyte_1rw1r_32x1024_8.lef             outputs/sram_1024_32.lef
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_4kbyte_1rw1r_32x1024_8/sky130_sram_4kbyte_1rw1r_32x1024_8_TT_1p8V_25C.lib outputs/sram_1024_32_tt_1p8V_25C.lib
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_4kbyte_1rw1r_32x1024_8/sky130_sram_4kbyte_1rw1r_32x1024_8.gds             outputs/sram_1024_32.gds
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_4kbyte_1rw1r_32x1024_8/sky130_sram_4kbyte_1rw1r_32x1024_8_TT_1p8V_25C.db  outputs/sram_1024_32_tt_1p8V_25C.db
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8/sky130_sram_1kbyte_1rw1r_32x256_8.sp              outputs/sram_256_32.sp
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8/sky130_sram_1kbyte_1rw1r_32x256_8.v               outputs/sram_256_32.v
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8/sky130_sram_1kbyte_1rw1r_32x256_8.lef             outputs/sram_256_32.lef
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8/sky130_sram_1kbyte_1rw1r_32x256_8_TT_1p8V_25C.lib outputs/sram_256_32_tt_1p8V_25C.lib
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8/sky130_sram_1kbyte_1rw1r_32x256_8.gds             outputs/sram_256_32.gds
+  - cp /farmshare/home/classes/ee/272/sky130_sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8/sky130_sram_1kbyte_1rw1r_32x256_8_TT_1p8V_25C.db  outputs/sram_256_32_tt_1p8V_25C.db
+  - catapult -shell -file scripts/sram_input_db.tcl
+  - catapult -shell -file scripts/sram_weight_db.tcl
+  - catapult -shell -file scripts/sram_accum_buff.tcl
+  - cp src/sram_wrapper_4096_128.v               outputs/design.vcs.v
+  - cp src/sram_wrapper_256_32.v                 outputs/sram_wrapper_256_32.v
+  - cp src/sram_wrapper_4096_128.v               outputs/sram_wrapper_4096_128.v
+  - cp src/sram_wrapper_8192_128.v               outputs/sram_wrapper_8192_128.v
+  - cp sram_input_db.lib                         outputs/sram_input_db.lib
+  - cp sram_weight_db.lib                        outputs/sram_weight_db.lib
+  - cp sram_accum_buff.lib                       outputs/sram_accum_buff.lib
+  - cp *.tcl                                     outputs
+  - cp *.h                                       outputs
+  - cp src/sram_tb.sv                            outputs/testbench.sv
+
