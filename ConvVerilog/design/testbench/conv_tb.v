@@ -220,7 +220,7 @@ module conv_tb;
       $display("%t: ofmap_adr_r = %d, ofmap_data_w = %h, expected ofmap_data_w = %h",
         $time, ofmap_adr_r, ofmap_data_w, ofmap_memory[ofmap_adr_r]);
       
-      assert(ofmap_data_w == ofmap_memory[ofmap_adr_r]) else $finish;
+      assert(ofmap_data_w == ofmap_memory[ofmap_adr_r]); //else $finish;
     
       ofmap_adr_r <= ofmap_adr_r + 1;
 

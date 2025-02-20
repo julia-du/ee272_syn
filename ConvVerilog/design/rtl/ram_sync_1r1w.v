@@ -12,54 +12,73 @@ module ram_sync_1r1w
   input [ADDR_WIDTH - 1 : 0] radr,
   output [DATA_WIDTH - 1 : 0] rdata
 );
-  // localparam MAX_ADDR_WIDTH = 13+1;
-  // localparam NUM_WMASKS = 4;
-  // localparam DELAY = 0;
-  // localparam SRAM_DATA_WIDTH = 32;
-  // localparam SRAM_ADDR_WIDTH = 8;
-  // localparam SRAM_DEPTH = 256;
-  // localparam VERBOSE = 1;
+  localparam MAX_ADDR_WIDTH = 13+1;
+  localparam NUM_WMASKS = 4;
+  localparam DELAY = 0;
+  localparam SRAM_DATA_WIDTH = 32;
+  localparam SRAM_ADDR_WIDTH = 8;
+  localparam SRAM_DEPTH = 256;
+  localparam VERBOSE = 0;
 
-  // wire [DATA_WIDTH-1:0] dout0 [(1<<(ADDR_WIDTH-SRAM_ADDR_WIDTH))-1:0];
-  // wire [DATA_WIDTH-1:0] dout1 [(1<<(ADDR_WIDTH-SRAM_ADDR_WIDTH))-1:0];
-  // wire [MAX_ADDR_WIDTH-SRAM_ADDR_WIDTH-1:0] sel0;
-  // wire [MAX_ADDR_WIDTH-SRAM_ADDR_WIDTH-1:0] sel1;
-  // reg [ADDR_WIDTH-1:0] radr_reg;
+  wire [DATA_WIDTH-1:0] dout0 [(1<<(ADDR_WIDTH-SRAM_ADDR_WIDTH))-1:0];
+  wire [DATA_WIDTH-1:0] dout1 [(1<<(ADDR_WIDTH-SRAM_ADDR_WIDTH))-1:0];
+  wire [MAX_ADDR_WIDTH-SRAM_ADDR_WIDTH-1:0] sel0;
+  wire [MAX_ADDR_WIDTH-SRAM_ADDR_WIDTH-1:0] sel1;
+  reg [ADDR_WIDTH-1:0] radr_reg;
 
-  // always @(posedge clk) begin
-  //   radr_reg = radr;
-  // end
+  always @(posedge clk) begin
+    if(ren) begin
+      radr_reg = radr;
+    end
+  end
 
-  // assign sel0 = wadr >> SRAM_ADDR_WIDTH;
-  // assign sel1 = radr_reg >> SRAM_ADDR_WIDTH;
+  assign sel0 = wadr >> SRAM_ADDR_WIDTH;
+  assign sel1 = radr_reg >> SRAM_ADDR_WIDTH;
 
-  // genvar i, j;
-  // generate
-  //     for (i = 0; i < 1<<(ADDR_WIDTH-SRAM_ADDR_WIDTH); i = i+1) begin // row
-  //         for (j = 0; j < DATA_WIDTH/SRAM_DATA_WIDTH; j = j+1) begin // column
-  //             sky130_sram_1kbyte_1rw1r_32x256_8 #(.NUM_WMASKS(NUM_WMASKS),
-  //                                                 .DATA_WIDTH(SRAM_DATA_WIDTH),
-  //                                                 .ADDR_WIDTH(SRAM_ADDR_WIDTH),
-  //                                                 .RAM_DEPTH(SRAM_DEPTH),
-  //                                                 .DELAY(DELAY),
-  //                                                 .VERBOSE(VERBOSE)) sram_macro (
-  //                                                     .clk0(clk),
-  //                                                     .csb0(!(wen && (i==sel0))),
-  //                                                     .web0(!(wen && (i==sel0))),
-  //                                                     .wmask0(4'hF),
-  //                                                     .addr0(wadr[SRAM_ADDR_WIDTH-1:0]),
-  //                                                     .din0(wdata[(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH]),
-  //                                                     .dout0(dout0[i][(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH]),
-  //                                                     .clk1(clk),
-  //                                                     .csb1(!(ren && (i==sel1))),
-  //                                                     .addr1(radr[SRAM_ADDR_WIDTH-1:0]),
-  //                                                     .dout1(dout1[i][(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH])
-  //                                                 );
-  //         end
-  //     end
-  // endgenerate
-  // assign rdata = dout1[sel1];
+  genvar i, j;
+  generate
+      for (i = 0; i < 1<<(ADDR_WIDTH-SRAM_ADDR_WIDTH); i = i+1) begin // row
+          for (j = 0; j < DATA_WIDTH/SRAM_DATA_WIDTH; j = j+1) begin // column
+              sky130_sram_1kbyte_1rw1r_32x256_8 #(.NUM_WMASKS(NUM_WMASKS),
+                                                  .DATA_WIDTH(SRAM_DATA_WIDTH),
+                                                  .ADDR_WIDTH(SRAM_ADDR_WIDTH),
+                                                  .RAM_DEPTH(SRAM_DEPTH),
+                                                  .DELAY(DELAY),
+                                                  .VERBOSE(VERBOSE)) sram_macro (
+                                                      .clk0(clk),
+                                                      .csb0(!(wen && (i==sel0))),
+                                                      .web0(!(wen && (i==sel0))),
+                                                      .wmask0(4'hF),
+                                                      .addr0(wadr[SRAM_ADDR_WIDTH-1:0]),
+                                                      .din0(wdata[(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH]),
+                                                      .dout0(dout0[i][(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH]),
+                                                      .clk1(clk),
+                                                      .csb1(!(ren && (i==sel1))),
+                                                      .addr1(radr[SRAM_ADDR_WIDTH-1:0]),
+                                                      .dout1(dout1[i][(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH])
+                                                  );
+          end
+      end
+  endgenerate
+  assign rdata = dout1[sel1];
+
+  // // synopsys translate_off
+  // reg [DATA_WIDTH - 1 : 0] rdata_reg;
   
+  // reg [DATA_WIDTH - 1 : 0] mem [DEPTH - 1 : 0];
+  
+  // always @(posedge clk) begin
+  //   if (wen) begin
+  //     mem[wadr] <= wdata; // write port
+  //   end
+  //   if (ren) begin
+  //     rdata_reg <= mem[radr]; // read port
+  //   end
+  // end
+  // // synopsys translate_on
+
+  // assign rdata = rdata_reg;
+
 endmodule
 
 // OpenRAM SRAM model
