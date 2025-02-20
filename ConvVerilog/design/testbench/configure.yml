@@ -3,6 +3,10 @@ name: testbench
 outputs:
   - testbench.sv
   - design.args
+  - ifmap_data.txt
+  - ofmap_data.txt
+  - weight_data.txt
 
 commands:
-  - cp ConvHLSTb.sv outputs/testbench.sv
+  - cp conv_tb.v outputs/testbench.sv
+  - cp *_data.txt outputs

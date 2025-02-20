@@ -103,6 +103,7 @@ def construct():
   #-----------------------------------------------------------------------
 
   g.update_params( parameters )
+  g.param_space( 'synopsys-dc-synthesis', 'clock_period', [100.0, 20.0, 10.0, 5.0, 4.0, 2.0])
 
   return g
 

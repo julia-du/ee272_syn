@@ -2,9 +2,9 @@
 `define ASSIGNMENT_DELAY 5
 `define FINISH_TIME 2000
 `define NUM_WMASKS 4
-`define DATA_WIDTH 32
-`define ADDR_WIDTH 8
-`define DEPTH 256
+`define DATA_WIDTH 128
+`define ADDR_WIDTH 12
+`define DEPTH 4096
 
 module SramTb;
   
@@ -18,7 +18,7 @@ module SramTb;
 
   always #(`CLK_PERIOD/2) clk =~clk;
  
-  sram_wrapper_256_32 #(
+  sram_wrapper_4096_128 #(
     .data_width(`DATA_WIDTH),
     .addr_width(`ADDR_WIDTH),
     .depth(`DEPTH)
@@ -49,32 +49,55 @@ module SramTb;
     wadr <= {`ADDR_WIDTH{1'b0}};
     din <= {`DATA_WIDTH{1'b1}};
     #(1*`CLK_PERIOD)
-    we <= 0;
+    wadr <= {`ADDR_WIDTH{1'b1}};
+    din <= {`DATA_WIDTH{1'b0}};
     #(1*`CLK_PERIOD)
+    we <= 0;
+    #(1*`CLK_PERIOD) // Read
     re <= 1;
     radr <= {`ADDR_WIDTH{1'b0}};
     #(1*`CLK_PERIOD) 
-    #(`CLK_PERIOD/2)// Read
+    radr <= {`ADDR_WIDTH{1'b1}};
+    #(`CLK_PERIOD/2)
     $display($time, " dout = %h", dout);
     assert(dout == {`DATA_WIDTH{1'b1}});
+    #(1*`CLK_PERIOD)
+    $display($time, " dout = %h", dout);
+    assert(dout == {`DATA_WIDTH{1'b0}});
     #(`CLK_PERIOD/2)
     re <= 0;
 
-    #(1*`CLK_PERIOD) // Write
-    we <= 1;
-    wadr <= {`ADDR_WIDTH{1'b1}};
-    din <= {`DATA_WIDTH{1'b1}};
-    #(1*`CLK_PERIOD)
-    we <= 0;
-    #(1*`CLK_PERIOD)
-    re <= 1;
-    radr <= {`ADDR_WIDTH{1'b1}};
-    #(1*`CLK_PERIOD) 
-    #(`CLK_PERIOD/2)// Read
-    $display($time, " dout = %h", dout);
-    assert(dout == {`DATA_WIDTH{1'b1}});
-    #(`CLK_PERIOD/2)
-    re <= 0;
+    // #(1*`CLK_PERIOD) // Write
+    // we <= 1;
+    // wadr <= {`ADDR_WIDTH{1'b0}};
+    // din <= {`DATA_WIDTH{1'b1}};
+    // #(1*`CLK_PERIOD)
+    // we <= 0;
+    // #(1*`CLK_PERIOD)
+    // re <= 1;
+    // radr <= {`ADDR_WIDTH{1'b0}};
+    // #(1*`CLK_PERIOD) 
+    // #(`CLK_PERIOD/2)// Read
+    // $display($time, " dout = %h", dout);
+    // assert(dout == {`DATA_WIDTH{1'b1}});
+    // #(`CLK_PERIOD/2)
+    // re <= 0;
+
+    // #(1*`CLK_PERIOD) // Write
+    // we <= 1;
+    // wadr <= {`ADDR_WIDTH{1'b1}};
+    // din <= {`DATA_WIDTH{1'b1}};
+    // #(1*`CLK_PERIOD)
+    // we <= 0;
+    // #(1*`CLK_PERIOD)
+    // re <= 1;
+    // radr <= {`ADDR_WIDTH{1'b1}};
+    // #(1*`CLK_PERIOD) 
+    // #(`CLK_PERIOD/2)// Read
+    // $display($time, " dout = %h", dout);
+    // assert(dout == {`DATA_WIDTH{1'b1}});
+    // #(`CLK_PERIOD/2)
+    // re <= 0;
     
     $finish(2);
   end

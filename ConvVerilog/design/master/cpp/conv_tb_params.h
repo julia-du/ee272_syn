@@ -1,7 +1,7 @@
 const int IC0 = 16;
 const int OC0 = 16;
-const int IC1 = 8;
-const int OC1 = 16;
+const int IC1 = 2;
+const int OC1 = 1;
 const int FX = 3;
 const int FY = 3;
 const int OX0 = 7;

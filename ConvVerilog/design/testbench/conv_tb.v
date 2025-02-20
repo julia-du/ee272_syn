@@ -21,8 +21,18 @@
 `define IFMAP_FIFO_WORDS 4
 
 
-`include "tests/layer_params.v"
-
+//`include "tests/layer_params.v"
+`define IC0 16
+`define OC0 16
+`define IC1 2
+`define OC1 1
+`define FX 3
+`define FY 3
+`define OX0 7
+`define OY0 7
+`define OX1 2
+`define OY1 2
+`define STRIDE 2
 
 `define COUNTER_WIDTH 32 //FIXME: Arbitrary
 
@@ -134,9 +144,9 @@ module conv_tb;
   );
 
   initial begin
-    $readmemh("./layers/ifmap_data.txt", ifmap_memory);
-    $readmemh("./layers/weight_data.txt", weight_memory);
-    $readmemh("./layers/ofmap_data.txt", ofmap_memory);
+    $readmemh("./inputs/ifmap_data.txt", ifmap_memory);
+    $readmemh("./inputs/weight_data.txt", weight_memory);
+    $readmemh("./inputs/ofmap_data.txt", ofmap_memory);
     
     clk <= 0;
     rst_n <= 0;
@@ -249,14 +259,16 @@ module conv_tb;
   end
  
   initial begin
-    $vcdplusfile("dump.vcd");
-    $vcdplusmemon();
-    $vcdpluson(0, conv_tb);
-    `ifdef FSDB
-    $fsdbDumpfile("dump.fsdb");
-    $fsdbDumpvars(0, conv_tb);
-    $fsdbDumpMDA();
-    `endif
+    $dumpfile("run.vcd");
+    $dumpvars;
+    // $vcdplusfile("dump.vcd");
+    // $vcdplusmemon();
+    // $vcdpluson(0, conv_tb);
+    // `ifdef FSDB
+    // $fsdbDumpfile("dump.fsdb");
+    // $fsdbDumpvars(0, conv_tb);
+    // $fsdbDumpMDA();
+    // `endif
     #200000000;
     $finish(2);
   end

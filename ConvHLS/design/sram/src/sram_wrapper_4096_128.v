@@ -20,12 +20,20 @@ localparam VERBOSE = 0;
 
 wire [data_width-1:0] dout0 [depth/SRAM_DEPTH-1:0];
 wire [data_width-1:0] dout1 [depth/SRAM_DEPTH-1:0];
+wire [addr_width-SRAM_ADDR_WIDTH-1:0] sel0;
+wire [addr_width-SRAM_ADDR_WIDTH-1:0] sel1;
+reg [addr_width-1:0] radr_reg;
+
+always @(posedge clk) begin
+  radr_reg = radr;
+end
+
+assign sel0 = wadr >> SRAM_ADDR_WIDTH;
+assign sel1 = radr_reg >> SRAM_ADDR_WIDTH;
 
 genvar i, j;
 generate
     for (i = 0; i < depth/SRAM_DEPTH; i = i+1) begin // row
-        wire sel0; assign sel0 = (i == wadr[addr_width-1:SRAM_ADDR_WIDTH]);
-        wire sel1; assign sel1 = (i == radr[addr_width-1:SRAM_ADDR_WIDTH]);
         for (j = 0; j < data_width/SRAM_DATA_WIDTH; j = j+1) begin // column
             sky130_sram_4kbyte_1rw1r_32x1024_8 #(.NUM_WMASKS(NUM_WMASKS),
                                                  .DATA_WIDTH(SRAM_DATA_WIDTH),
@@ -34,21 +42,21 @@ generate
                                                  .DELAY(DELAY),
                                                  .VERBOSE(VERBOSE)) sram_macro (
                                                     .clk0(clk),
-                                                    .csb0(!(we && sel0)),
-                                                    .web0(!(we && sel0)),
+                                                    .csb0(!(we && (i==sel0))),
+                                                    .web0(!(we && (i==sel0))),
                                                     .wmask0(4'hF),
                                                     .addr0(wadr[SRAM_ADDR_WIDTH-1:0]),
                                                     .din0(d[(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH]),
                                                     .dout0(dout0[i][(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH]),
                                                     .clk1(clk),
-                                                    .csb1(!(re && sel1)),
+                                                    .csb1(!(re && (i==sel1))),
                                                     .addr1(radr[SRAM_ADDR_WIDTH-1:0]),
                                                     .dout1(dout1[i][(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH])
                                                  );
         end
     end
 endgenerate
-assign q = dout1[radr[addr_width-1:SRAM_ADDR_WIDTH]];
+assign q = dout1[sel1];
 
 endmodule
 
