@@ -63,7 +63,9 @@ commands:
   - catapult -shell -file scripts/sram_input_db.tcl
   - catapult -shell -file scripts/sram_weight_db.tcl
   - catapult -shell -file scripts/sram_accum_buff.tcl
-  - cp src/sram_wrapper_4096_128.v               outputs/design.vcs.v
+  - cat src/sram_wrapper_256_32.v >> outputs/design.vcs.v
+  - cat src/sram_wrapper_4096_128.v >> outputs/design.vcs.v
+  - cat src/sram_wrapper_8192_128.v >> outputs/design.vcs.v
   - cp src/sram_wrapper_256_32.v                 outputs/sram_wrapper_256_32.v
   - cp src/sram_wrapper_4096_128.v               outputs/sram_wrapper_4096_128.v
   - cp src/sram_wrapper_8192_128.v               outputs/sram_wrapper_8192_128.v

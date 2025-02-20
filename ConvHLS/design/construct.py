@@ -23,14 +23,14 @@ def construct():
 
   parameters = {
     'construct_path' : __file__,
-    'design_name'    : 'ConvHLS',
+    'design_name'    : 'Conv',
     'clock_period'   : 20.0,
     'adk'            : adk_name,
     'adk_view'       : adk_view,
-    'topographical'  : True
+    'topographical'  : True,
  #   'testbench_name' : 'ConvHLSTb',
- #   'strip_path'     : 'ConvHLSTb/sram_inst',
- #   'saif_instance'  : 'ConvHLSTb/ConvHLS_inst'
+    'strip_path'     : 'scverify_top/Conv',
+    'saif_instance'  : 'scverify_top/Conv'
   }
 
   #-----------------------------------------------------------------------

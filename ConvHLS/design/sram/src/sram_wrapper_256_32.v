@@ -16,33 +16,27 @@ localparam DELAY = 0;
 localparam SRAM_DATA_WIDTH = 32;
 localparam SRAM_ADDR_WIDTH = 8;
 localparam SRAM_DEPTH = 256;
-localparam VERBOSE = 0;
+localparam VERBOSE = 1;
 
 wire [data_width-1:0] dout0;
-
-genvar j;
-generate
-    for (j = 0; j < data_width/SRAM_DATA_WIDTH; j = j+1) begin
-        sky130_sram_1kbyte_1rw1r_32x256_8 #(.NUM_WMASKS(NUM_WMASKS),
-                                                .DATA_WIDTH(SRAM_DATA_WIDTH),
-                                                .ADDR_WIDTH(SRAM_ADDR_WIDTH),
-                                                .RAM_DEPTH(SRAM_DEPTH),
-                                                .DELAY(DELAY),
-                                                .VERBOSE(VERBOSE)) sram_macro (
-                                                .clk0(clk),
-                                                .csb0(!we),
-                                                .web0(!we),
-                                                .wmask0(4'hF),
-                                                .addr0(wadr[SRAM_ADDR_WIDTH-1:0]),
-                                                .din0(d[(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH]),
-                                                .dout0(q[(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH]),
-                                                .clk1(clk),
-                                                .csb1(!re),
-                                                .addr1(radr[SRAM_ADDR_WIDTH-1:0]),
-                                                .dout1(q[(j+1)*SRAM_DATA_WIDTH-1:j*SRAM_DATA_WIDTH])
-                                                );
-    end
-endgenerate
+sky130_sram_1kbyte_1rw1r_32x256_8 #(.NUM_WMASKS(NUM_WMASKS),
+                                        .DATA_WIDTH(SRAM_DATA_WIDTH),
+                                        .ADDR_WIDTH(SRAM_ADDR_WIDTH),
+                                        .RAM_DEPTH(SRAM_DEPTH),
+                                        .DELAY(DELAY),
+                                        .VERBOSE(VERBOSE)) sram_macro (
+                                        .clk0(clk),
+                                        .csb0(!we),
+                                        .web0(!we),
+                                        .wmask0(4'hF),
+                                        .addr0(wadr),
+                                        .din0(d),
+                                        .dout0(dout0),
+                                        .clk1(clk),
+                                        .csb1(!re),
+                                        .addr1(radr),
+                                        .dout1(q)
+                                        );
 endmodule
 
 // OpenRAM SRAM model
@@ -56,7 +50,8 @@ module sky130_sram_1kbyte_1rw1r_32x256_8#(
   parameter ADDR_WIDTH = 8,
   parameter RAM_DEPTH = 256,
   parameter DELAY = 0,
-  parameter VERBOSE = 0
+  parameter VERBOSE = 0,
+  parameter T_HOLD = 1
 )(
   input  clk0, // clock
   input   csb0, // active low chip select
@@ -89,7 +84,7 @@ module sky130_sram_1kbyte_1rw1r_32x256_8#(
     wmask0_reg = wmask0;
     addr0_reg = addr0;
     din0_reg = din0;
-    dout0 = 32'bx;
+    #(T_HOLD) dout0 = 32'bx;
     if ( !csb0_reg && web0_reg && VERBOSE) 
       $display($time," Reading %m addr0=%b dout0=%b",addr0_reg,mem[addr0_reg]);
     if ( !csb0_reg && !web0_reg )
@@ -103,7 +98,7 @@ module sky130_sram_1kbyte_1rw1r_32x256_8#(
     addr1_reg = addr1;
     if (!csb0 && !web0 && !csb1 && (addr0 == addr1))
          $display($time," WARNING: Writing and reading addr0=%b and addr1=%b simultaneously!",addr0,addr1);
-    dout1 = 32'bx;
+    #(T_HOLD) dout1 = 32'bx;
     if ( !csb1_reg && VERBOSE) 
       $display($time," Reading %m addr1=%b dout1=%b",addr1_reg,mem[addr1_reg]);
   end
@@ -140,6 +135,5 @@ module sky130_sram_1kbyte_1rw1r_32x256_8#(
     if (!csb1_reg)
        dout1 <= #(DELAY) mem[addr1_reg];
   end
-
 endmodule
 // synopsys translate_on

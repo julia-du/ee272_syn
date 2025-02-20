@@ -21,7 +21,7 @@ AREA             0
 RDWRRESOLUTION   UNKNOWN
 WRITELATENCY     1
 READLATENCY      1
-DEPTH            2256
+DEPTH            256
 PARAMETERS {
   { PARAMETER data_width TYPE hdl IGNORE 0 MIN {} MAX {} DEFAULT 32   }
   { PARAMETER addr_width TYPE hdl IGNORE 0 MIN {} MAX {} DEFAULT 8    }

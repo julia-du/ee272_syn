@@ -22,11 +22,12 @@ outputs:
 
 commands:
   - make
-  - cat build/Conv.v1/concat_rtl.v > outputs/design.v 
+  - cp build/Conv.v1/concat_rtl.v > outputs/design.v 
   - head -n -5 build/Conv.v1/concat_sim_rtl.v > temp
   - mv temp build/Conv.v1/concat_sim_rtl.v
   - cat add_dump.txt >> build/Conv.v1/concat_sim_rtl.v
   - make rtl_test_no_gui
+  - cp run.vcd > outputs/run.vcd
   
 parameters:
   clock_period: 1.0
