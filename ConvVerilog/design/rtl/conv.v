@@ -1,24 +1,24 @@
 module conv 
 #(
-  parameter IFMAP_WIDTH = 16,
-  parameter WEIGHT_WIDTH = 16,
+  parameter IFMAP_WIDTH = 8,
+  parameter WEIGHT_WIDTH = 8,
   parameter OFMAP_WIDTH = 32,
 
-  parameter ARRAY_WIDTH = 4,
-  parameter ARRAY_HEIGHT = 4,
+  parameter ARRAY_WIDTH = 16,
+  parameter ARRAY_HEIGHT = 16,
   
-  parameter WEIGHT_BANK_ADDR_WIDTH = 8, // Should be ceil(log2(WEIGHT_BANK_DEPTH))
-  parameter WEIGHT_BANK_DEPTH = 256,
-  parameter IFMAP_BANK_ADDR_WIDTH = 8, // Should be ceil(log2(IFMAP_BANK_DEPTH))
-  parameter IFMAP_BANK_DEPTH = 256,
+  parameter WEIGHT_BANK_ADDR_WIDTH = 13, // Should be ceil(log2(WEIGHT_BANK_DEPTH))
+  parameter WEIGHT_BANK_DEPTH = 8192,
+  parameter IFMAP_BANK_ADDR_WIDTH = 12, // Should be ceil(log2(IFMAP_BANK_DEPTH))
+  parameter IFMAP_BANK_DEPTH = 4096,
   parameter OFMAP_BANK_ADDR_WIDTH = 8, // Should be ceil(log2(OFMAP_BANK_ADDR_WIDTH))
   parameter OFMAP_BANK_DEPTH = 256,
   
   parameter CONFIG_DATA_WIDTH = 8,
   parameter CONFIG_ADDR_WIDTH = 8,
   
-  parameter WEIGHT_FIFO_WORDS = 1,
-  parameter IFMAP_FIFO_WORDS = 1
+  parameter WEIGHT_FIFO_WORDS = 4,
+  parameter IFMAP_FIFO_WORDS = 4
 )
 (
     input clk,

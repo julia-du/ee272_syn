@@ -2,9 +2,9 @@
 `define ASSIGNMENT_DELAY 5
 `define FINISH_TIME 2000
 `define NUM_WMASKS 4
-`define DATA_WIDTH 128
-`define ADDR_WIDTH 12
-`define DEPTH 4096
+`define DATA_WIDTH 32
+`define ADDR_WIDTH 8
+`define DEPTH 256
 
 module SramTb;
   
@@ -18,7 +18,7 @@ module SramTb;
 
   always #(`CLK_PERIOD/2) clk =~clk;
  
-  sram_wrapper_4096_128 #(
+  sram_wrapper_256_32 #(
     .data_width(`DATA_WIDTH),
     .addr_width(`ADDR_WIDTH),
     .depth(`DEPTH)

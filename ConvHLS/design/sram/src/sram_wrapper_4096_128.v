@@ -18,14 +18,16 @@ localparam SRAM_ADDR_WIDTH = 10;
 localparam SRAM_DEPTH = 1024;
 localparam VERBOSE = 0;
 
-wire [data_width-1:0] dout0 [depth/SRAM_DEPTH-1:0];
-wire [data_width-1:0] dout1 [depth/SRAM_DEPTH-1:0];
+wire [data_width-1:0] dout0 [(1<<(addr_width-SRAM_ADDR_WIDTH))-1:0];
+wire [data_width-1:0] dout1 [(1<<(addr_width-SRAM_ADDR_WIDTH))-1:0];
 wire [addr_width-SRAM_ADDR_WIDTH-1:0] sel0;
 wire [addr_width-SRAM_ADDR_WIDTH-1:0] sel1;
 reg [addr_width-1:0] radr_reg;
 
 always @(posedge clk) begin
-  radr_reg = radr;
+  if(re) begin
+    radr_reg = radr;
+  end
 end
 
 assign sel0 = wadr >> SRAM_ADDR_WIDTH;
@@ -33,7 +35,7 @@ assign sel1 = radr_reg >> SRAM_ADDR_WIDTH;
 
 genvar i, j;
 generate
-    for (i = 0; i < depth/SRAM_DEPTH; i = i+1) begin // row
+    for (i = 0; i < (1<<(addr_width-SRAM_ADDR_WIDTH)); i = i+1) begin // row
         for (j = 0; j < data_width/SRAM_DATA_WIDTH; j = j+1) begin // column
             sky130_sram_4kbyte_1rw1r_32x1024_8 #(.NUM_WMASKS(NUM_WMASKS),
                                                  .DATA_WIDTH(SRAM_DATA_WIDTH),
