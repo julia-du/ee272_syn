@@ -30,7 +30,8 @@ def construct():
     'topographical'  : True,
     'testbench_name' : 'conv_tb',
     'strip_path'     : 'conv_tb/conv_inst',
-    'saif_instance'  : 'conv_tb/conv_inst'
+    'saif_instance'  : 'conv_tb/conv_inst',
+    'flatten_effort' : 2
   }
 
   #-----------------------------------------------------------------------
