@@ -31,7 +31,8 @@ def construct():
     'testbench_name' : 'conv_tb',
     'strip_path'     : 'conv_tb/conv_inst',
     'saif_instance'  : 'conv_tb/conv_inst',
-    'flatten_effort' : 2
+    'flatten_effort' : 2,
+    'high_effort_area_opt' : True
   }
 
   #-----------------------------------------------------------------------
@@ -102,7 +103,7 @@ def construct():
   #-----------------------------------------------------------------------
 
   g.update_params( parameters )
-  g.param_space( 'synopsys-dc-synthesis', 'clock_period', [100.0, 20.0, 10.0, 5.0, 4.0, 2.0])
+  g.param_space( 'synopsys-dc-synthesis', 'clock_period', [100.0, 20.0, 10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 2.0])
   
   return g
 

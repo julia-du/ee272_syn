@@ -1,0 +1,43 @@
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: The derived toggle rate value (0.333333) for the clock net 'clk' conflicts with the annotated value (0.100000). Using the annotated value. (PWR-12)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort low
+Design : conv
+Version: S-2021.06-SP5-4
+Date   : Fri Feb 21 21:34:18 2025
+****************************************
+
+
+Library(s) Used:
+
+    sky130_fd_sc_hd__tt_025C_1v80 (File: /home/users/sophiadu/ee272/ee272_syn/ConvVerilog/build/16-synopsys-dc-synthesis-clock_period-6.0/inputs/adk/stdcells.db)
+    sky130_sram_1kbyte_1rw1r_32x256_8_TT_1p8V_25C_lib (File: /home/users/sophiadu/ee272/ee272_syn/ConvVerilog/build/16-synopsys-dc-synthesis-clock_period-6.0/inputs/sram_256_32_tt_1p8V_25C.db)
+
+
+Operating Conditions: tt_025C_1v80   Library: sky130_fd_sc_hd__tt_025C_1v80
+Wire Load Model Mode: Inactive.
+
+
+Global Operating Voltage = 1.8  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+conv                                    458.251  839.294 3.96e+06 1.30e+03 100.0
+  systolic_array_with_skew_inst_systolic_array_inst (conv_systolic_array_IFMAP_WIDTH8_WEIGHT_WIDTH8_OFMAP_WIDTH32_ARRAY_HEIGHT16_ARRAY_WIDTH16_0)  224.097   25.809  426.344  249.907  19.2
+  systolic_array_with_skew_inst_ofmap_skew_registers (conv_skew_registers_DATA_WIDTH32_N16_1)  114.807    5.761   42.694  120.568   9.3
+  ofmap_deaggregator_inst (conv_deaggregator_DATA_WIDTH32_FETCH_WIDTH16_0) 4.95e-02    0.289   22.083    0.339   0.0
+  ofmap_skew_registers_inst (conv_skew_registers_DATA_WIDTH32_N16_0)  116.218    5.712   42.672  121.930   9.4
+1

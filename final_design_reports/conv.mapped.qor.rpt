@@ -1,0 +1,114 @@
+ 
+****************************************
+Report : qor
+Design : conv
+Version: S-2021.06-SP5-4
+Date   : Fri Feb 21 21:33:48 2025
+****************************************
+
+
+  Timing Path Group 'REGIN'
+  -----------------------------------
+  Levels of Logic:               4.00
+  Critical Path Length:          2.84
+  Critical Path Slack:           0.00
+  Critical Path Clk Period:      6.00
+  Total Negative Slack:          0.00
+  No. of Violating Paths:        0.00
+  Worst Hold Violation:          0.00
+  Total Hold Violation:          0.00
+  No. of Hold Violations:        0.00
+  -----------------------------------
+
+  Timing Path Group 'REGOUT'
+  -----------------------------------
+  Levels of Logic:               0.00
+  Critical Path Length:          0.49
+  Critical Path Slack:           5.51
+  Critical Path Clk Period:      6.00
+  Total Negative Slack:          0.00
+  No. of Violating Paths:        0.00
+  Worst Hold Violation:          0.00
+  Total Hold Violation:          0.00
+  No. of Hold Violations:        0.00
+  -----------------------------------
+
+  Timing Path Group 'ideal_clock'
+  -----------------------------------
+  Levels of Logic:              29.00
+  Critical Path Length:          5.88
+  Critical Path Slack:           0.00
+  Critical Path Clk Period:      6.00
+  Total Negative Slack:          0.00
+  No. of Violating Paths:        0.00
+  Worst Hold Violation:          0.00
+  Total Hold Violation:          0.00
+  No. of Hold Violations:        0.00
+  -----------------------------------
+
+
+  Cell Count
+  -----------------------------------
+  Hierarchical Cell Count:        441
+  Hierarchical Port Count:       6009
+  Leaf Cell Count:             188407
+  Buf/Inv Cell Count:           46825
+  Buf Cell Count:               27075
+  Inv Cell Count:               19750
+  CT Buf/Inv Cell Count:            0
+  Combinational Cell Count:    162660
+  Sequential Cell Count:        25747
+  Macro Count:                      0
+  -----------------------------------
+
+
+  Area
+  -----------------------------------
+  Combinational Area:  1039848.535875
+  Noncombinational Area:
+                        510081.693779
+  Buf/Inv Area:         218693.489225
+  Total Buffer Area:        144359.70
+  Total Inverter Area:       74333.79
+  Macro/Black Box Area:
+                      80105727.000000
+  Net Area:                  0.000000
+  Net XLength        :     3975407.50
+  Net YLength        :     3758262.00
+  -----------------------------------
+  Cell Area:          81655657.229654
+  Design Area:        81655657.229654
+  Net Length        :      7733669.50
+
+
+  Design Rules
+  -----------------------------------
+  Total Number of Nets:        210138
+  Nets With Violations:          6622
+  Max Trans Violations:          6619
+  Max Cap Violations:               4
+  -----------------------------------
+
+
+  Hostname: rice-02
+
+  Compile CPU Statistics
+  -----------------------------------------
+  Resource Sharing:                    0.00
+  Logic Optimization:                  0.00
+  Mapping Optimization:             2199.15
+  -----------------------------------------
+  Overall Compile Time:             2333.42
+  Overall Compile Wall Clock Time:   349.92
+
+  --------------------------------------------------------------------
+
+  Design  WNS: 0.00  TNS: 0.00  Number of Violating Paths: 0
+
+
+  Design (Hold)  WNS: 0.00  TNS: 0.00  Number of Violating Paths: 0
+
+  --------------------------------------------------------------------
+
+
+1
